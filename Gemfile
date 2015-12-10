@@ -2,5 +2,5 @@ source 'https://rubygems.org'
 
 gem 'sinatra'
 gem 'sinatra-contrib'
-#gem 'pi-piper'
+gem 'pi_piper'
 gem 'json'
