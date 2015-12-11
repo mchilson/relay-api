@@ -33,10 +33,10 @@ get '/on' do
         $pin.on
     rescue
     	content_type :json
-    	{ :success => false, :message => 'A GPIO Error Occured' }.to_json
+    	{ :state => false, :message => 'A GPIO Error Occured' }.to_json
     else
     	content_type :json
-    	{ :success => true, :message => 'Success' }.to_json
+    	{ :state => true, :message => 'Success' }.to_json
     end        
 end
 
@@ -46,10 +46,10 @@ get '/off' do
         $pin.off
     rescue
     	content_type :json
-    	{ :success => false, :message => 'A GPIO Error Occured' }.to_json
+    	{ :state => false, :message => 'A GPIO Error Occured' }.to_json
     else
         content_type :json
-        { :success => true, :message => 'Success' }.to_json
+        { :state => true, :message => 'Success' }.to_json
     end
 end
 
