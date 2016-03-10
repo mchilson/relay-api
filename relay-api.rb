@@ -17,8 +17,6 @@ use Rack::Auth::Basic, 'Authorization Required' do |username, password|
   username == 'admin' and password == 'admin'
 end
 
-
-
 #protected pages
 get '/' do
   '<h2>Relay API</h2>
@@ -31,12 +29,13 @@ get '/on' do
     #set the relay to on and send success or failure message
     begin
         $pin.on
+	$pin.read
     rescue
     	content_type :json
-    	{ :state => false, :message => 'A GPIO Error Occured' }.to_json
+    	{ :Success => 0, :State => $pin.value }.to_json
     else
     	content_type :json
-    	{ :state => true, :message => 'Success' }.to_json
+    	{ :Success => 1, :State => $pin.value }.to_json
     end        
 end
 
@@ -44,12 +43,13 @@ get '/off' do
     #set the relay to off and send success or failure message
     begin
         $pin.off
+	$pin.read
     rescue
     	content_type :json
-    	{ :state => false, :message => 'A GPIO Error Occured' }.to_json
+    	{ :Success => 0, :State => $pin.value }.to_json
     else
         content_type :json
-        { :state => true, :message => 'Success' }.to_json
+    	{ :Success => 1, :State => $pin.value }.to_json
     end
 end
 
@@ -59,9 +59,9 @@ get '/status' do
     	$pin.read
     rescue
         content_type :json
-        { :status => 0, :message => 'A GPIO Error has Occured' }.to_json
+        { :Success => 0, :State => $pin.value }.to_json
     else
         content_type :json
-        { :state => $pin.value, :message => 'Success' }.to_json
+        { :Success => 1, :State => $pin.value }.to_json
     end
 end
